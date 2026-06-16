@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notification API Demo</title>
+</head>
+<body>
+
+<h2>Create Notification</h2>
+
+<input type="text" id="title" placeholder="Title">
+<br><br>
+
+<input type="text" id="message" placeholder="Message">
+<br><br>
+
+<button onclick="sendNotification()">Send</button>
+
+<script>
+async function sendNotification() {
+    const title = document.getElementById("title").value;
+    const message = document.getElementById("message").value;
+
+    const response = await fetch(
+        "http://localhost:3000/notifications",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title,
+                message
+            })
+        }
+    );
+
+    const data = await response.json();
+    alert(data.data.title + " created successfully");
+}
+</script>
+
+</body>
+</html>
